@@ -42,44 +42,42 @@ int main() {
         free(text);
         return 1;
     }
-    const char *ending_phrase = "Dragon flew away!";
+    const char *endingPhrase = "Dragon flew away!";
     size_t text_len = strlen(text);
-    if (text_len >= strlen(ending_phrase) && strstr(text + text_len - strlen(ending_phrase), ending_phrase)) {
-        text[text_len - strlen(ending_phrase)] = '\0';
+    if (text_len >= strlen(endingPhrase) && strstr(text + text_len - strlen(endingPhrase), endingPhrase)) {
+        text[text_len - strlen(endingPhrase)] = '\0';
     }
     char *currentPosition = text;
     const char *delimiters = ".;?";
     while (*currentPosition) {
         size_t len = strcspn(currentPosition, delimiters);
-        char ending_char = currentPosition[len];
-        if (ending_char == '\0') break;
-        char *sentence_start = removeWhitespace(currentPosition);
+        char endingChar = currentPosition[len];
+        if (endingChar == '\0') break;
+        char *sentenceStart = removeWhitespace(currentPosition);
         char *sentence = malloc(len + 2);
         if (!sentence) {
             fprintf(stderr, "Ошибка выделения памяти для предложения.\n");
             free(sentence);
             break;
         }
-        strncpy(sentence, sentence_start, len);
+        strncpy(sentence, sentenceStart, len);
         sentence[len] = '\0'; 
         removeTrailingWhitespace(sentence);
         originalCount++;
         if (countUppercase(sentence) <= 1) {
             if (filteredCount >= maxSentences) {
                 maxSentences *= 2;
-                char **new_array = realloc(filteredSentences, maxSentences * sizeof(char *));
-                if (!new_array) {
+                char **newArray = realloc(filteredSentences, maxSentences * sizeof(char *));
+                if (!newArray) {
                     fprintf(stderr, "Ошибка увеличения памяти для массива предложений.\n");
                     free(sentence);
                     break;
                 }
-                filteredSentences = new_array;
+                filteredSentences = newArray;
             }
             filteredSentences[filteredCount] = sentence;
             filteredCount++;
         } else {
-            printf("%d\n", countUppercase(sentence));
-            printf(sentence);
             free(sentence);
         }
         currentPosition += len + 1;
