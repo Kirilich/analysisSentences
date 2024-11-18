@@ -86,7 +86,7 @@ int main() {
         printf("%s\n", filteredSentences[i]);
         free(filteredSentences[i]);
     }
-    printf("Количество предложений до %d и количество предложений после %d\n", originalCount, filteredCount);
+    printf("Dragon flew away!\nКоличество предложений до %d и количество предложений после %d\n", originalCount, filteredCount);
     free(filteredSentences);
     free(text);
     return 0;
