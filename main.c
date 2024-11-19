@@ -20,8 +20,9 @@ void removeTrailingWhitespace(char *str) {
         len--;
     }
 }
+
 char *removeWhitespace(char *str) {
-    while (*str == ' ' || *str == '\t') str++;
+    while (*str == '\t') str++;
     return str;
 }
 
