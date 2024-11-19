@@ -52,8 +52,8 @@ int main() {
     const char *delimiters = ".;?";
     while (*currentPosition) {
         size_t len = strcspn(currentPosition, delimiters) + 1;
-        char endingChar = currentPosition[len];
-        if (endingChar == '\0') break;
+        char endingChar = currentPosition[len - 1];
+        if (endingChar == '\0' || endingChar == '\n') break;
         char *sentenceStart = removeWhitespace(currentPosition);
         char *sentence = malloc(len + 2);
         if (!sentence) {
@@ -83,11 +83,11 @@ int main() {
         }
         currentPosition += len + 1;
     }
-    for (int i = 0; i < filteredCount - 2; i++) {
+    for (int i = 0; i < filteredCount; i++) {
         printf("%s\n", filteredSentences[i]);
         free(filteredSentences[i]);
     }
-    printf("Dragon flew away!\nКоличество предложений до %d и количество предложений после %d", originalCount - 2, filteredCount - 2);
+    printf("Dragon flew away!\nКоличество предложений до %d и количество предложений после %d", originalCount, filteredCount);
     free(filteredSentences);
     free(text);
     return 0;
