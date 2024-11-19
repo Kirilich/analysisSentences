@@ -22,7 +22,7 @@ void removeTrailingWhitespace(char *str) {
 }
 
 char *removeWhitespace(char *str) {
-    while (*str == '\t') str++;
+    while (*str == ' ' || *str == '\t') str++;
     return str;
 }
 
@@ -51,7 +51,7 @@ int main() {
     char *currentPosition = text;
     const char *delimiters = ".;?";
     while (*currentPosition) {
-        size_t len = strcspn(currentPosition, delimiters);
+        size_t len = strcspn(currentPosition, delimiters) + 1;
         char endingChar = currentPosition[len];
         if (endingChar == '\0') break;
         char *sentenceStart = removeWhitespace(currentPosition);
@@ -83,11 +83,11 @@ int main() {
         }
         currentPosition += len + 1;
     }
-    for (int i = 0; i < filteredCount; i++) {
+    for (int i = 0; i < filteredCount - 2; i++) {
         printf("%s\n", filteredSentences[i]);
         free(filteredSentences[i]);
     }
-    printf("Dragon flew away!\nКоличество предложений до %d и количество предложений после %d", originalCount, filteredCount);
+    printf("Dragon flew away!\nКоличество предложений до %d и количество предложений после %d", originalCount - 2, filteredCount - 2);
     free(filteredSentences);
     free(text);
     return 0;
